@@ -24,7 +24,7 @@ def bran_se_proti_vitezstvi(pole):
         pozice = pole.index("o-o")
         return pole[:pozice+1] + "x" + pole[pozice+2:]  
 
-def bran_o_o(pole):
+def bran_o3o(pole):
     """zabrani protihraci tah z o---o na oo--o nebo na o--oo"""
     
     pozice = pole.index("o---o")
@@ -57,40 +57,64 @@ def zahrajx_x(pole):
     if "----x" in pole:
         pozice = pole.index("----x")
         return pole[:pozice] + "x" + pole[pozice+1:]        
-    
+  
+def bran_o2o(pole):
+    print("obrana o--o")
+    nahoda = randrange(0,2)
+    pozice = pole.index("o--o")
+    return pole[:pozice+nahoda+1] + "x" + pole[pozice+nahoda+2:]  
 
+def blokuj_protihrace(pole):
+    pozice = pole.index("-o-")
+    nahoda = randrange(0,3,2)
+    return pole[:pozice+nahoda] + "x" + pole[pozice+nahoda+1:]
+
+def zahraj_xx(pole):
+    if "x-" in pole:
+        pozice = pole.index("x-")
+        return pole[:pozice+1] + "x" + pole[pozice+2:]   
+    if "-x" in pole:
+        pozice = pole.index("-x")
+        return pole[:pozice] + "x" + pole[pozice+1:]
+    
 def tah_pocitace(pole):    
         
     #kontrola, zda pocitac nemuze okamzite vyhrat
     if ("-xx" in pole) or ("xx-" in pole) or ("x-x" in pole):
         return vyhraj(pole)
     
+    ############## OBRANA #####################################
+    
     #kontrola, zda nemuze protihrac tahnout na vitezstvi
     if ("-oo" in pole) or ("oo-" in pole) or ("o-o" in pole):
         return bran_se_proti_vitezstvi(pole)
     
-    #obrana, aby protihrac nezahra o-o-o
+    #obrana, aby protihrac s retezcem o---o nezahral na jiste vitezstvi 
     if("o---o" in pole):
-        return bran_o_o(pole)
-        #muzes zahrat x mezi "x---x"? 
-  
-    #zahraj x doprostred k x---x 
+        return bran_o3o(pole)
+          
+    #zahraj x--x + zabran o--o
+    if ("o--o" in pole):
+        return bran_o2o(pole)    
+    
+     #zahraj tak, abys blokoval protihrace, tj. hned vedle nej
+    if ("-o-" in pole):
+        #neblokuje hned, zkus rozehrat utok 
+        if("-x" in pole) or ("x-" in pole):
+            zahraj_xx(pole)
+        return blokuj_protihrace(pole)
+     
+     ################## UTOK ############################
+     #utocny tah - zahraj x doprostred k x---x 
     if ("x---x" in pole):
         return zahrajx_x_x(pole)
-       
-    #zahraj tak, aby se v poli objevili dve x v nasledujicim tvaru "x---x". V dalsim kole se snad umistit x doprostred.
+    #zahraj tak, aby se v poli objevili dve x v nasledujicim tvaru "x---x". V dalsim kole se snaz umistit x doprostred.
     
     if("x----" in pole) or ("----x" in pole):
         return zahrajx_x(pole) 
     
-    #TODOzahraj o--o + zabran x--x
-    
-    #TODOzahraj tak, abys blokoval protihrace, tj. hned vedle nej
-    
-    #vsechny predchozi strategie se neuplatnily, umisti "o" nahodne do volneho mista
-    
-    #TODOzahraj pobliz existujiciho x ->  -x- na xx- nebo -xx
-    
+           
+    #vsechny predchozi strategie se neuplatnily, umisti "x" nahodne do volneho mista
     while True:
         pozice = randrange(0,20)
         if (pole[pozice] == "-"):
