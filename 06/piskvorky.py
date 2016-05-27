@@ -1,0 +1,39 @@
+#--*-- encoding:1250 --*--
+
+def tah(pole, cislo_policka, symbol):
+    return  pole[:cislo_policka] + symbol + pole[cislo_policka+1:]
+
+def vyhodnot(pole, znakHrac, znakPC):
+    
+    if (znakHrac*3 in pole):
+        return znakHrac
+    elif (znakPC*3 in pole):
+        return znakPC
+    elif "-" not in pole:
+        return "!"
+    else:
+        return "-"    
+
+    
+def tah_hrace(pole, znakHrac):
+    while True:
+        try:
+            pozice = int(input('Zadejte èíslo políèka: '))
+        except TypeError:
+            print("Chyba vstupu. Opakujte.")
+        except ValueError:
+            print("Chyba vstupu. Opakujte.")
+        else:
+            if pozice > len(pole):
+                print("Èíslo políèka nesmí pøekroèit {0}".format(len(pole)))
+            elif pozice < 0:
+                print("Èíslo políèka musí být kladné")
+            elif "o" == pole[pozice] or "x" == pole[pozice]: 
+                #kontrola obsazenosti pole
+                print("Toto políèko je již obsazeno")
+                continue                
+            else:
+                return tah(pole, pozice, znakHrac)
+                
+
+    
