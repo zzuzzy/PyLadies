@@ -6,7 +6,7 @@ from random import randrange
 
 def piskvorky1D():
     
-    pole = "-" * 0
+    pole = "-" * 20
     
     # kdo ma jaky znak 0:PC-x a hrac-o, 1:PC-o a hrac-x
     if randrange(0, 2):
