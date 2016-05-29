@@ -1,5 +1,5 @@
 from random import randrange
-from piskvorky import tah
+from util import tah
 import re
 
 def tah_pocitace(pole, symbol):
@@ -9,10 +9,8 @@ def tah_pocitace(pole, symbol):
         symbolHrace = "o"
     else:
         symbolHrace = "x"
-    
-    
-    #Vyherni tah pocitace
-    
+        
+    #Vyherni tah pocitace    
     if(symbolPC*2+"-" in pole):
         pozice = pole.index(symbolPC*2+"-") + 2
     elif(symbolPC+"-"+symbolPC in pole):
@@ -20,8 +18,7 @@ def tah_pocitace(pole, symbol):
     elif("-"+symbolPC*2 in pole):
         pozice = pole.index("-"+symbolPC*2)
     
-    #obrana proti okamzitemu vitezstvi
-    
+    #obrana proti okamzitemu vitezstvi    
     elif(symbolHrace*2 + "-" in pole):
         pozice = pole.index(symbolHrace*2 + "-") + 2
     elif(symbolHrace + "-" + symbolHrace in pole):
@@ -30,38 +27,34 @@ def tah_pocitace(pole, symbol):
         pozice = pole.index("-" + symbolHrace*2)
      
     #utocny tah
-    elif("-" + symbolPC + "-" in pole):
-        
+    elif("-" + symbolPC + "-" in pole):        
         if re.search("-" + symbolPC + "-+"+symbolPC, pole):
-            print("utok -PC----PC")
             pozice = pole.index("-" + symbolPC + "-") + 2
-        elif re.search(symbolPC+"-+" + symbolPC + "-", pole):
-            print("utok PC--PC-")
+        elif re.search(symbolPC + "-+" + symbolPC + "-", pole):
             pozice = pole.index("-" + symbolPC + "-")
         else:
-            print("utok -PC-")
             pozice = pole.index("-" + symbolPC + "-") + randrange(0,4,2)
        
+    #utocny tah        
+    elif(symbolPC + "---" + symbolPC in pole):
+        pozice = pole.index(symbolPC + "---" + symbolPC) + 2
+        
     #blokace protihrace
     elif("-" + symbolHrace + "-" in pole):
-        print("Blokace -H-")
-        #TODO regularni vyraz 
-        pozice = pole.index("-" + symbolHrace + "-" )
         
-    #utocny tah
-        
-    elif(symbolPC + "---" + symbolPC in pole):
-        print("Utok PC---PC")
-        pozice = pole.index(symbolPC + "---" + symbolPC) + 2
-    elif(symbolPC + "----" in pole):
-        print("Utok PC----")
+        if re.search("-"+ symbolHrace + "-+" + symbolHrace, pole):
+            pozice = pole.index("-" + symbolHrace + "-") + 2
+        elif re.search(symbolHrace + "-+" + symbolHrace + "-", pole):
+            pozice = pole.index("-" + symbolHrace + "-")
+        else:      
+            pozice = pole.index("-" + symbolHrace + "-") +  randrange(0,4,2)    
+           
+    #zaloz utok    
+    elif(symbolPC + "----" in pole):        
         pozice = pole.index(symbolPC + "----") + 4
-    elif("----" + symbolPC in pole):
-        print("Utok ----PC")
+    elif("----" + symbolPC in pole):      
         pozice = pole.index("----" + symbolPC)
-    
-        
-    
+                
     #nahodna strategie, selhaly ostatni
     else:
     
@@ -70,8 +63,10 @@ def tah_pocitace(pole, symbol):
                 print("Pocitac nemuze na pole hrat")            
                 return pole
             pozice = randrange(0, len(pole))
+            if ("-"*len(pole) == pole) and ((pozice == 0) or (pozice == len(pole)-1)):
+                #je-li pole jeste prazdne, nehraj na krajni policka
+                continue
             if "-" == pole[pozice]:
-                break
-        
+                break                
     
     return tah(pole, pozice, symbolPC)

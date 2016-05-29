@@ -6,7 +6,7 @@ from random import randrange
 
 def piskvorky1D():
     
-    pole = "-" * 20
+    pole = "-" * 0
     
     # kdo ma jaky znak 0:PC-x a hrac-o, 1:PC-o a hrac-x
     if randrange(0, 2):
@@ -18,8 +18,8 @@ def piskvorky1D():
     
     print("Hrac ma", znakHrac)
     
-    while True:
-        
+    while True:            
+       
         pole = tah_pocitace(pole, znakPC)
         print(pole)
         if "-" != vyhodnot(pole, znakHrac, znakPC):

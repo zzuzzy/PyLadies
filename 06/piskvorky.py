@@ -1,7 +1,6 @@
 #--*-- encoding:1250 --*--
 
-def tah(pole, cislo_policka, symbol):
-    return  pole[:cislo_policka] + symbol + pole[cislo_policka+1:]
+from util import tah
 
 def vyhodnot(pole, znakHrac, znakPC):
     
@@ -16,6 +15,8 @@ def vyhodnot(pole, znakHrac, znakPC):
 
     
 def tah_hrace(pole, znakHrac):
+    if "" == pole:
+        return pole
     while True:
         try:
             pozice = int(input('Zadejte číslo políčka: '))
