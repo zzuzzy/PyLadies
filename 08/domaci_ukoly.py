@@ -68,7 +68,10 @@ def ukol6(zvirata):
                 zvirata[j+1] = zvirata[j]
                 zvirata[j] = temp
     print(zvirata)
+ 
+def ukol7(rim):
     
+       
 def main():
     ukol6(zvirata2)
     
