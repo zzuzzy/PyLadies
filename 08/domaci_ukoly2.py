@@ -1,0 +1,40 @@
+#--*-- encoding:1250 --*--
+'''
+Created on 30. 5. 2016
+
+@author: zzuzzy
+'''
+
+def ukol9():
+    """vypíše básnièku ze souboru basnicka.txt , ale obrátí poøadí veršù (t.j. jako první vypíše poslední øádek, atd."""
+    with open('basnicka.txt', 'r') as soubor:      
+        content = soubor.readlines() 
+        content.reverse() 
+        for item in content:
+        
+            print(item.rstrip())
+
+def ukol10():
+    """obrátí poøadí slov v jednotlivıch verších"""
+    
+    with open('basnicka.txt', 'r') as soubor:  
+        for line in soubor:
+            line = line.rstrip().split()  
+            line.reverse()
+            line = " ".join(line)
+            print(line)
+ 
+def ukol11():
+    """Obra poøadí slok (ty by mìly bıt oddìlené jedním prázdnım øádkem)."""
+    with open('basnicka.txt', 'r') as soubor:  
+        content = soubor.read().rstrip()
+        seznam = content.split("\n\n")
+        seznam.reverse()
+        content = "\n\n".join(seznam)
+        print(content)
+    
+       
+def main():
+    ukol11()
+
+main()

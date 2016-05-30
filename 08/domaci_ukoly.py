@@ -57,6 +57,10 @@ def ukol5():
                 zvirata[j] = temp
     print(zvirata)
     
+def ukol5b():
+    zvirata.sort()
+    print(zvirata)
+    
 def ukol6(zvirata):
     """seradi zvirata dle abecedy, ale ignoruje prvni pismenko zvirete"""
     for i in range(len(zvirata) -1 ):
@@ -68,11 +72,51 @@ def ukol6(zvirata):
                 zvirata[j+1] = zvirata[j]
                 zvirata[j] = temp
     print(zvirata)
- 
-def ukol7(rim):
     
+def ukol6b(zvirata):
+    dict_zvirata = []
+    
+    for zvire in zvirata:
+        dict_zvirata.append([zvire[1],zvire])
+    dict_zvirata.sort()
+    
+    return [item[1] for item in dict_zvirata]
+        
+     
+
+
+
+def ukol7(rnumber):
+    
+    romanNums = ["I", "V", "X", "L", "C", "D", "M"]
+    arabicValues = [1, 5, 10, 50, 100, 500, 1000]
+  #  bothValues = zip(romanNum, arabicValues)
+    
+    arabicNumber = 0
+    rnumber = rnumber.upper()
+    
+    for i in range(len(romanNums)):
+        romanNumsSorted = list(enumerate(romanNums))
+        
+    reverseNumber = list(rnumber)
+    reverseNumber.reverse()
+    
+    previous = arabicValues[romanNums.index(reverseNumber[0])]
+    
+    #cte zadane cislo "zprava" a pricita si hodnoty rimskych cifer
+    for i in range(len(reverseNumber)):      
+        #jestlize je aktualni rimska cislice mensi mensi nez predchozi, musim ji odecist        
+        actual = arabicValues[romanNums.index(reverseNumber[i])]     
+        if actual < previous:          
+            arabicNumber -= actual
+        else:          
+            arabicNumber += arabicValues[romanNums.index(reverseNumber[i])]            
+        previous = actual
+     
+    print("Øímské èíslo {0} pøedstavuje arabské èíslo {1}".format(rnumber, arabicNumber))   
+    return arabicNumber
        
 def main():
-    ukol6(zvirata2)
+    ukol7("CDXCIV")
     
 main()

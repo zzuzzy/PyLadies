@@ -4,9 +4,10 @@ Created on 27. 5. 2016
 
 @author: zzuzzy
 '''
+
 zvirata = ["pes", "koèka", "králík", "had"]
 
-from domaci_ukoly import ukol4
+from domaci_ukoly import ukol4, ukol7
 
 def test_ukol4():
     assert  ukol4([], []) == ([], [], [])
@@ -31,6 +32,12 @@ def test_ukol7():
     assert ukol7("M") == 1000
     assert ukol7("i") == 1
     assert ukol7("v") == 5
-    assert ukol7("LIIIVII") == 87
+    assert ukol7("LXXXVII") == 87
     assert ukol7("CDXCIV") == 494
-    
+    assert ukol7("CXXV") == 125
+    assert ukol7("CCCXCII") == 392
+    assert ukol7("LXVII") == 67
+    assert ukol7("MII") == 1002
+    assert ukol7("MDXLVII") == 1547
+    assert ukol7("MCCCXIX") == 1319
+    assert ukol7("MCMXLV") == 1945
