@@ -44,15 +44,41 @@ def pohyb(souradnice, smer):
     print(souradnice)  # â†’ [(0, 0), (0, 1)]
     """
     smery = dict({"v":(0,1), "j":(1,0), "z":(0,-1), "s": (-1,0)})
-    
-    souradnice.append((souradnice[-1][0] + smery[smer][0], souradnice[-1][1] + smery[smer][1]))
-    
+    #kontrola pohybu mimo mapu
+    nova_pozice 
+    #pohyb    
+    try:
+        souradnice.append((souradnice[-1][0] + smery[smer][0], souradnice[-1][1] + smery[smer][1]))
+        if souradnice:
+            del souradnice[0]
+    except IndexError:
+        print("Chyba indexu")
+        
     return souradnice
             
 
 def main():
-    nakresli_mapu([(0, 0), (1, 0), (2, 2), (4, 3), (8, 9)])
-    print(pohyb([(0, 0)], "v"))
-    print(pohyb([(0, 0), (0, 1), (0, 2)], "j"))
+    #inicializace
+    souradnice = [(0, 0), (1, 0), (2, 0)]
+    nakresli_mapu(souradnice)
     
+    #hlavni cyklus
+    while True:
+        #Uzivatel je vyzvan z zadani svetove strany
+        try:
+            smer = input("Zadejte smìr pohybu [v, j, z, s] (nebo q pro ukonceni)")
+        except ValueError as err:
+            print("Zadejte vstup znovu. Špatný vstup: ", err)
+        else:
+            if smer.lower() == 'q':
+                break
+            if smer.lower() not in ["v", "j", "z", "s"]:
+                print("Zadejte vstup znovu[v, j, z, s]") 
+        
+        #Je proveden pohyb
+        souradnice = pohyb(souradnice, smer)
+        
+        #vykresleni mapy s novym pohybem
+        nakresli_mapu(souradnice)
+        
 main()
