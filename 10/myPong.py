@@ -115,8 +115,16 @@ def vykresli():
     #nastaveni pocatecniho skore, zobrazeni skore
     
 def posun(t):
+    
+    #posun micku
     rychlost_x = rychlost[0]
     rychlost_y = rychlost[1]
+    
+    #kontrola odrazu od horniho a dolniho okraje    
+    
+    #kontrola narazu na palku
+    
+    #kontrola narazu mimo palku - bod pro druheho hrace 
     
     micek[0] += rychlost_x
     micek[1] += rychlost_y
