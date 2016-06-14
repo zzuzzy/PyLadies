@@ -161,6 +161,21 @@ def posun_micek():
     nova_pozice.append(micek[2] + smer[0])
     nova_pozice.append(micek[3] + smer[1])
     
+    
+    #kontrola narazu mimo palku - bod pro druheho hrace 
+    if (nova_pozice[0] <= 5) and ((nova_pozice[3] < palka1[1]) or (nova_pozice[1] > palka1[3])):
+        #reset hry, uprava skore
+        print("zasah -  hrac 2")
+        skore[1] += 1
+        reset()
+        return        
+        
+    elif (nova_pozice[2] >= SIRKA -5) and ((nova_pozice[3] < palka2[1]) or (nova_pozice[1] > palka2[3])): 
+        print("zasah -  hrac 2")       
+        skore[0] += 1
+        reset()
+        return
+    
     #kontrola odrazu od horniho a dolniho okraje    
     #horni okraj - pozice Y1 nebo Y2, tj. 4.index
     if (nova_pozice[1] < 0) or (nova_pozice[3] > VYSKA):
@@ -171,22 +186,7 @@ def posun_micek():
     if (nova_pozice[0] < 0) or (nova_pozice[2] > SIRKA):
         smer[0] = -smer[0]
          
-    #kontrola narazu mimo palku - bod pro druheho hrace 
-    if (nova_pozice[0] == 0) and ((nova_pozice[3] < palka1[1]) or (nova_pozice[1] > palka1[3])):
-        #reset hry, uprava skore
-        print("zasah -  hrac 2")
-        skore[1] += 1
-        reset()
-        return        
-        
-    elif (nova_pozice[2] == SIRKA) and ((nova_pozice[3] < palka2[1]) or (nova_pozice[1] > palka2[3])): 
-        print("zasah -  hrac 2")       
-        skore[0] += 1
-        reset()
-        return
-    else:
-        print("Nic")
-    
+       
     
     micek[0] += smer[0]
     micek[1] += smer[1]
@@ -209,7 +209,10 @@ def posun_palku(palka, smer):
 
        
 def reset():
-    micek = [SIRKA//2 - 10, VYSKA//2 - 10, SIRKA//2 + 10, VYSKA//2 + 10]    
+    micek[0] = SIRKA//2 - 10
+    micek[1] = VYSKA//2 - 10
+    micek[2] = SIRKA//2 + 10
+    micek[3] = VYSKA//2 + 10    
     smer[0] = randrange(1,5)
     smer[1] = randrange(-5,5)
     
